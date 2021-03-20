@@ -103,7 +103,7 @@ header .search input{
 .container .table{
     background-color: #fff;
     width: 50%;
-    max-height: 270px;
+    max-height: 260px;
     padding: 10px;
     overflow: auto;
 }

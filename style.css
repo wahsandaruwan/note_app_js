@@ -28,6 +28,9 @@ button:hover{
 input, textarea, table{
     font-size: 1rem;
 }
+::placeholder{
+    font-size: 0.9rem;
+}
 
 /* ------Header------ */
 header{

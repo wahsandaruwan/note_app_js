@@ -84,7 +84,7 @@ function addNote(e){
 function removeNote(e){
     if(e.target.classList.contains('del')){
         if(confirm("Are you sure?")){
-            // Delete note
+            // Delete notes
             var tr = e.target.parentElement.parentElement;
             items.removeChild(tr);
             

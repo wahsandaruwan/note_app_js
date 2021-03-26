@@ -5,6 +5,7 @@ var ntitle = document.getElementById('n-title');
 var nbody = document.getElementById('n-body');
 var tableDiv = document.getElementById('tbl-div');
 var noteCount = 0;
+var newNote = '';
 
 // -----Events-----
 // For page loads
@@ -13,10 +14,13 @@ window.onload = updateTable();
 // For form submit
 form.addEventListener('submit', addNote);
 
+// For Remove Notes
+items.addEventListener('click', removeNote);
+
 // -----Functions-----
 
 // Update table
-function updateTable(newNote){
+function updateTable(){
     // Display the table when notes added
     if(noteCount > 0){
         tableDiv.style.display = 'block';
@@ -47,7 +51,7 @@ function addNote(e){
     td2.className = 'btcellv';
     var btn1 = document.createElement('button');
     btn1.appendChild(document.createTextNode('View'));
-    btn1.setAttribute('id', 'vw');
+    btn1.className = 'vw';
     td2.appendChild(btn1);
 
     // New td for delete
@@ -55,7 +59,7 @@ function addNote(e){
     td3.className = 'btcelld';
     var btn2 = document.createElement('button');
     btn2.appendChild(document.createTextNode('Delete'));
-    btn2.setAttribute('id', 'del');
+    btn2.className = 'del';
     td3.appendChild(btn2);
     
     // Add all tds to tr
@@ -66,9 +70,29 @@ function addNote(e){
     // Increment note count
     noteCount++;
 
+    // Set new note
+    newNote = tr;
+
     // Send new note to table
-    updateTable(tr);
+    updateTable();
 
     // Clear inputs
     ntitle.value = '';
+}
+
+// Remove Note
+function removeNote(e){
+    if(e.target.classList.contains('del')){
+        if(confirm("Are you sure?")){
+            // Delete note
+            var tr = e.target.parentElement.parentElement;
+            items.removeChild(tr);
+            
+            // Update table
+            noteCount--;
+            if(noteCount == 0){
+                updateTable();
+            }
+        }
+    }
 }

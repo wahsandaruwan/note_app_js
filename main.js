@@ -27,7 +27,7 @@ search.addEventListener('keyup', searchNotes);
 function updateTable(){
     // Display the table when notes added
     if(noteCount > 0){
-        tableDiv.style.display = 'block';
+        tableDiv.style.display = '';
         items.appendChild(newNote);
     }
     else{
@@ -116,7 +116,7 @@ function searchNotes(e){
         var noteTitle = item.firstChild.textContent;
         // Match
         if(noteTitle.toLowerCase().indexOf(searchTxt) != -1){
-            item.style.display = 'block';
+            item.style.display = '';
         }
         else{
             item.style.display = 'none';

@@ -155,7 +155,7 @@ header .search input{
 
 /* ------Responsive------ */
 @media(max-width: 600px){
-    /* ------Header------ */
+    /* Header */
     header{
         flex-direction: column;
     }
@@ -163,7 +163,7 @@ header .search input{
         margin-bottom: 10px;
     }
 
-    /* ------Container------ */
+    /* Container */
     .container{
         flex-direction: column;
         align-items: center;

@@ -6,9 +6,9 @@ var nbody = document.getElementById('n-body');
 var tableDiv = document.getElementById('tbl-div');
 var search = document.getElementById('srch');
 var resetBtn = document.getElementById('reset');
+
 var noteCount = 0;
 var newNote = '';
-var view = '';
 var isUpdate = false;
 var record = '';
 var note = '';
@@ -21,20 +21,23 @@ window.onload = updateTable;
 // For form submit
 form.addEventListener('submit', addNote);
 
-// For Remove
-items.addEventListener('click', removeNote);
-
 // For Search
 search.addEventListener('keyup', searchNotes);
 
-// For Clear
-resetBtn.addEventListener('click', clearAll);
+// For Remove
+items.addEventListener('click', removeNote);
+
+// For View & Update
+items.addEventListener('click', viewNUpdateNote);
+
+// For Reset
+resetBtn.addEventListener('click', resetAll);
 
 // -----Functions-----
 
 // Update table
 function updateTable(){
-    // Display the table when notes added
+    // Display the table when notes get added
     if(noteCount > 0){
         tableDiv.style.display = '';
 
@@ -46,7 +49,7 @@ function updateTable(){
             isUpdate = false;
             noteCount--;
         }
-        // Add note
+        // Add a new note
         else{
             items.appendChild(newNote);
         }
@@ -66,7 +69,7 @@ function addNote(e){
         alert("Please fill all fields!");
     }
     else{
-        // Create a new note record 
+        // Create a new note record
 
         // New tr
         var tr = document.createElement('tr');
@@ -85,7 +88,7 @@ function addNote(e){
         td2.className = 'btcellv';
         var btn1 = document.createElement('button');
         btn1.appendChild(document.createTextNode('View'));
-        btn1.className = 'vw';
+        btn1.setAttribute('id','vw');
         td2.appendChild(btn1);
 
         // New td for delete
@@ -95,7 +98,7 @@ function addNote(e){
         btn2.appendChild(document.createTextNode('Delete'));
         btn2.setAttribute('id','del');
         td3.appendChild(btn2);
-        
+
         // Add all tds to tr
         tr.appendChild(td1);
         tr.appendChild(td2);
@@ -109,14 +112,10 @@ function addNote(e){
 
         // Add or Update the note of the table
         updateTable();
-
-        // Events for view
-        addEventForView();
     }
 
-    // Clear inputs
-    ntitle.value = '';
-    nbody.value = '';
+    // Reset all
+    resetAll();
 }
 
 // Remove Note
@@ -126,7 +125,7 @@ function removeNote(e){
             // Delete notes
             var tr = e.target.parentElement.parentElement;
             items.removeChild(tr);
-            
+
             // Update table
             noteCount--;
             if(noteCount === 0){
@@ -144,7 +143,7 @@ function searchNotes(e){
     // Get list
     var list = items.getElementsByClassName('item');
 
-    // Convert to array
+    // Convert to an array
     var listArr = Array.from(list);
     listArr.forEach(function(item){
         // Get title
@@ -159,33 +158,22 @@ function searchNotes(e){
     });
 }
 
-// Add Events for View Buttons
-function addEventForView(){
-    // Get List
-    view = document.getElementsByClassName('vw');
-
-    // Convert to array
-    var listArr = Array.from(view);
-    listArr.forEach(function(vitem){
-        // Add an event for each button
-        vitem.addEventListener('click', viewNote);
-    });
+// View & Update Note
+function viewNUpdateNote(e){
+    if(e.target.id === 'vw'){
+      // Get the element values & update input fields
+      record = e.target.parentElement.parentElement;
+      note = record.firstChild;
+      ntitle.value = note.firstChild.textContent;
+      nbody.value = note.lastChild.textContent;
+      isUpdate = true;
+    }
 }
 
-// View Note
-function viewNote(e){
-    record = e.target.parentElement.parentElement;
-    note = record.firstChild;
-    ntitle.value = note.firstChild.textContent;
-    nbody.value = note.lastChild.textContent;
-    isUpdate = true;
-}
-
-// Clear Inputs
-function clearAll(){
+// Reset All
+function resetAll(){
     ntitle.value = '';
     nbody.value = '';
-    search.value = '';
     isUpdate = false;
     newNote = '';
     view = '';

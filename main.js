@@ -15,10 +15,10 @@ var note = '';
 var body = '';
 
 // -----Events-----
-// For page loads
+// For Page Loads
 window.onload = updateTable;
 
-// For form submit
+// For Form Submit
 form.addEventListener('submit', addNote);
 
 // For Search
